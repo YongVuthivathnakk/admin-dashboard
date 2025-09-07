@@ -4,8 +4,8 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 const RootLayout = () => (
   <>
-    <TanStackRouterDevtools  position='bottom-right'/>
-    <Outlet />
+      <TanStackRouterDevtools position='bottom-right' />
+      <Outlet />
   </>
 )
 

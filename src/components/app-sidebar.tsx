@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/sidebar"
 import { SidebarData } from "@/constants"
 import NavGeneral from "./navigation/nav-general"
+import { NavOther } from "./navigation/nav-other"
+import { SearchForm } from "./ui/search-form"
 
 // This is sample data.
 
@@ -22,11 +24,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={SidebarData.teams} />
+        <SearchForm />
       </SidebarHeader>
       <SidebarContent>
-        {/* <NavMain items={SidebarData.navMain} /> */}
-        {/* <NavProjects projects={SidebarData.projects} /> */}
         <NavGeneral items={SidebarData.navGeneral} />
+        <NavOther items={SidebarData.navOther}></NavOther>
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={SidebarData.user} />
