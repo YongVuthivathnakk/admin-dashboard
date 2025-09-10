@@ -11,7 +11,6 @@ export const NavOther = ({
         title: string
         icon?: LucideIcon
         items?: {
-            isActive?: boolean
             title: string
             url: string
             icon?: LucideIcon
@@ -24,7 +23,7 @@ export const NavOther = ({
 
 
     useEffect(() => {
-        const haveActiveSubItems = items.some(item => item.items?.some(subItem => subItem.isActive))
+        const haveActiveSubItems = items.some(item => item.items?.some(subItem => subItem.url === currentPathname));
         if(haveActiveSubItems) {
             setOpen(true);
             console.log(open);
@@ -55,10 +54,10 @@ export const NavOther = ({
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
                                         {item.items?.map((subItem) => {
-                                            subItem.isActive = currentPathname === subItem.url;
+                                            const isActive = currentPathname === subItem.url;
                                             return (
                                                 <SidebarMenuSubItem key={subItem.title}>
-                                                    <SidebarMenuSubButton asChild isActive={subItem.isActive} className={`${subItem.isActive ? "font-semibold" : ""}`}>
+                                                    <SidebarMenuSubButton asChild isActive={isActive} className={`${isActive ? "font-semibold" : ""}`}>
                                                         <Link to={subItem.url}>
                                                         {subItem.icon && <subItem.icon />}
                                                             <span>{subItem.title}</span>

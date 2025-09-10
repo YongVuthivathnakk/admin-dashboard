@@ -4,15 +4,14 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { ModeToggle } from '@/components/mode-toggle'
 import { Outlet } from '@tanstack/react-router'
 
 
-export default function DashboardLayout({
+export function DashboardLayout({
     children
 }:{children?: React.ReactNode}) {
   return (
-    <SidebarProvider>
+    <SidebarProvider className='text-foreground'>
       <AppSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 justify-between pr-10 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -36,7 +35,6 @@ export default function DashboardLayout({
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <ModeToggle />
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           {children ?? <Outlet />}

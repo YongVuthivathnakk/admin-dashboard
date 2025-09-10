@@ -1,14 +1,7 @@
-import { DashboardLayout } from '@/layouts'
+import { SettingProfile } from '@/features/settings/profile'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/settings/')({
-  component: RouteComponent,
+  component: SettingProfile,
 })
 
-function RouteComponent() {
-  return (
-    <DashboardLayout>
-      Profile
-    </DashboardLayout>
-  )
-}

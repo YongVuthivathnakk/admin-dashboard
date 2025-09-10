@@ -1,7 +1,7 @@
 
 
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem, useSidebar } from '../ui/sidebar'
-import { MoreHorizontal, Folder, Forward, Trash2, type LucideIcon } from 'lucide-react'
+import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar'
+import { type LucideIcon } from 'lucide-react'
 import { Link, useRouterState } from '@tanstack/react-router';
 
 export default function NavGeneral({

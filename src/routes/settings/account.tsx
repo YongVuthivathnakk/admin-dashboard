@@ -1,4 +1,4 @@
-import { DashboardLayout } from '@/layouts'
+import { DashboardLayout, SettingLayout } from '@/layouts'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/settings/account')({
@@ -8,7 +8,9 @@ export const Route = createFileRoute('/settings/account')({
 function RouteComponent() {
   return (
     <DashboardLayout>
-      Account
+      <SettingLayout>
+        Account
+      </SettingLayout>
     </DashboardLayout>
   )
 }
