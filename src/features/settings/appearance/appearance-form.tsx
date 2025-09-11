@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { showSubmittedData } from "@/lib/show-submited-data";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -73,7 +74,7 @@ const onSubmit = (values: z.infer<typeof AppearanceFormSchema>) => {
         </header>
         <Separator />
         <main className="mt-5">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
             {/* Theme Color Selection */}
             <FormField
               control={form.control}
@@ -85,22 +86,25 @@ const onSubmit = (values: z.infer<typeof AppearanceFormSchema>) => {
                     Choose the color theme for your dashboard.
                   </FormDescription>
                   <FormControl>
-                      <div className="w-full flex justify-center items-center gap-2">
+                       <ScrollArea className="h-[50px] w-[300px] rounded-md whitespace-nowrap">
+                      <div className="w-full flex mt-2 justify-center items-center gap-2">
                         {THEME_COLORS.map((color) => (
                           <Button
-                            key={color}
-                            type="button"
-                            variant={"link"}
-                            onClick={() => field.onChange(color)}
-                            className={`
-                              capitalize text-md font-normal w-[70px] text-foreground  hover:font-medium transition-none 
-                              ${field.value === color ? 'underline font-medium' : ''}
-                              `}
-                          >
+                          key={color}
+                          type="button"
+                          variant={"link"}
+                          onClick={() => field.onChange(color)}
+                          className={`
+                            capitalize text-md font-normal w-[70px] text-foreground  hover:font-medium transition-none 
+                            ${field.value === color ? 'underline font-medium' : ''}
+                            `}
+                            >
                             {color}
                           </Button>
                         ))}
                       </div>
+                       <ScrollBar orientation="horizontal" />
+                        </ScrollArea>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -114,7 +118,7 @@ const onSubmit = (values: z.infer<typeof AppearanceFormSchema>) => {
               control={form.control}
               name="mode"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col gap-2 mt-5">
                   <FormLabel className="font-semibold text-md">Theme Mode</FormLabel>
                   <FormDescription className="text-sm text-muted-foreground">
                     Select between light and dark mode.
@@ -145,7 +149,7 @@ const onSubmit = (values: z.infer<typeof AppearanceFormSchema>) => {
             />
           </div>
         </main>
-        <footer className="mt-6">
+        <footer className="mt-10">
           <Button type="submit">Update Appearance</Button>
         </footer>
       </form>
