@@ -26,11 +26,12 @@ export const SettingSidebar = ({
   const [page, setPage] = useState("");
   return (
     <>
+      {/* Small screen */}
       <div className="block sm:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              className="flex w-[190px] text-md justify-between"
+              className="flex w-[190px] text-lg justify-between"
               variant={"outline"}
             >
               {page}
@@ -46,15 +47,14 @@ export const SettingSidebar = ({
                 }
               });
               return (
-                <DropdownMenuItem>
-                  <Button
-                    key={item.title}
-                    variant={"ghost"}
-                    asChild
-                    className={`w-full justify-between`}
-                  >
-                    <Link className="flex gap-5" to={item.url}>
-                      <div className="flex gap-3 justify-center items-center text-md">
+                <DropdownMenuItem 
+                  key={item.title} 
+                  className={`${
+                    isActive && "bg-accent"
+                  }`} 
+                  asChild >
+                    <Link className="flex gap-5 w-full justify-between" to={item.url}>
+                      <div className="flex gap-3 justify-center items-center text-lg">
                         {item.icon && <item.icon className="text-foreground" />}
                         <span>{item.title}</span>
                       </div>
@@ -64,14 +64,16 @@ export const SettingSidebar = ({
                         `}
                       />
                     </Link>
-                  </Button>
                 </DropdownMenuItem>
               );
             })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="hidden w-[125px] md:w-[200px] sm:flex flex-row lg:flex-col gap-2">
+
+
+      {/* Larget screen */}
+      <div className="hidden flex-row gap-2 w-[125px] sm:flex lg:flex-col ">
         {items.map((item) => {
           let isActive = currentPathname === item.url;
           return (

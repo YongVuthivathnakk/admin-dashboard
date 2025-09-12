@@ -1,5 +1,6 @@
-import {useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
   Form,
   FormControl,
@@ -12,8 +13,11 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { capitalize } from "@/lib/capitalize";
 import { showSubmittedData } from "@/lib/show-submited-data";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
@@ -48,6 +52,13 @@ const AppearanceFormSchema = z.object({
 
 export const AppearanceForm = () => {
   const { setTheme, theme } = useTheme();
+  const [currentColor, setCurrentColor] = useState("");
+
+  useEffect(() => {
+    setCurrentColor(theme.color);
+  }, [theme])
+
+
 
   const form = useForm<z.infer<typeof AppearanceFormSchema>>({
     resolver: zodResolver(AppearanceFormSchema as any),
@@ -58,7 +69,7 @@ export const AppearanceForm = () => {
   });
 
 
-const onSubmit = (values: z.infer<typeof AppearanceFormSchema>) => {
+  const onSubmit = (values: z.infer<typeof AppearanceFormSchema>) => {
     setTheme({ mode: values.mode, color: values.color });
     showSubmittedData(values)
   };
@@ -86,25 +97,56 @@ const onSubmit = (values: z.infer<typeof AppearanceFormSchema>) => {
                     Choose the color theme for your dashboard.
                   </FormDescription>
                   <FormControl>
-                       <ScrollArea className="h-[50px] w-[300px] rounded-md whitespace-nowrap">
-                      <div className="w-full flex mt-2 justify-center items-center gap-2">
+                    <>
+                      {/* Small Screen */}
+                      <div className="flex md:hidden mb-3">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              className="flex w-[190px] text-md justify-between"
+                              variant={"outline"}
+                            >
+                              {capitalize(currentColor)}
+                              <ChevronDown />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent className="w-[190px]">
+                            <ScrollArea className="w-full flex flex-col">
+                              {THEME_COLORS.map((color) => (
+                                <DropdownMenuItem key={color}
+                                    className="w-full text-md my-1"
+                                    onClick={() => {
+                                      setCurrentColor(color);
+                                      field.onChange(color);
+                                    }}
+                                    >
+                                    {capitalize(color)}
+                                </DropdownMenuItem>
+                              ))}
+                            </ScrollArea>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+
+                      {/* Medium Screen */}
+
+                      <div className="hidden w-full md:flex mt-2 items-center gap-2">
                         {THEME_COLORS.map((color) => (
                           <Button
-                          key={color}
-                          type="button"
-                          variant={"link"}
-                          onClick={() => field.onChange(color)}
-                          className={`
+                            key={color}
+                            type="button"
+                            variant={"link"}
+                            onClick={() => field.onChange(color)}
+                            className={`
                             capitalize text-md font-normal w-[70px] text-foreground  hover:font-medium transition-none 
                             ${field.value === color ? 'underline font-medium' : ''}
                             `}
-                            >
+                          >
                             {color}
                           </Button>
                         ))}
                       </div>
-                       <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
