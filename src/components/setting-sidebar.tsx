@@ -1,4 +1,4 @@
-import { Check, ChevronDown, type LucideIcon } from "lucide-react";
+import { Check, ChevronDown, Home, type LucideIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 
 export const SettingSidebar = ({
   items,
@@ -24,6 +24,18 @@ export const SettingSidebar = ({
   const routerState = useRouterState();
   const currentPathname = routerState.location.pathname;
   const [page, setPage] = useState("");
+  const [pageIcon, setPageIcon] = useState<LucideIcon>();
+
+  useEffect(() => {
+    const activeItem = items.find((item) => item.url === currentPathname);
+    if (activeItem) {
+      setPage(activeItem.title);
+      setPageIcon(activeItem.icon);
+    }
+  }, [currentPathname, items]);
+
+  const Icon = pageIcon;
+
   return (
     <>
       {/* Small screen */}
@@ -31,10 +43,13 @@ export const SettingSidebar = ({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              className="flex w-[190px] text-lg justify-between"
+              className="flex w-[190px] text-lg font-normal justify-between"
               variant={"outline"}
             >
-              {page}
+              <div className="flex font-normal gap-3 justify-center items-center">
+                {Icon && <Icon />}
+                {page}
+              </div>
               <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
@@ -44,26 +59,26 @@ export const SettingSidebar = ({
               useEffect(() => {
                 if (isActive) {
                   setPage(item.title);
+                  setPageIcon(item.icon);
                 }
               });
               return (
-                <DropdownMenuItem 
-                  key={item.title} 
-                  className={`${
-                    isActive && "bg-accent"
-                  }`} 
+                <DropdownMenuItem
+                  key={item.title}
+                  className={`${isActive && "bg-accent"
+                    }`}
                   asChild >
-                    <Link className="flex gap-5 w-full justify-between" to={item.url}>
-                      <div className="flex gap-3 justify-center items-center text-lg">
-                        {item.icon && <item.icon className="text-foreground" />}
-                        <span>{item.title}</span>
-                      </div>
-                      <Check
-                        className={`
+                  <Link className="flex gap-5 w-full justify-between" to={item.url}>
+                    <div className="flex gap-3 justify-center items-center text-lg">
+                      {item.icon && <item.icon className="text-foreground" />}
+                      <span>{item.title}</span>
+                    </div>
+                    <Check
+                      className={`
                         ${isActive ? "block" : "hidden"}
                         `}
-                      />
-                    </Link>
+                    />
+                  </Link>
                 </DropdownMenuItem>
               );
             })}
@@ -83,11 +98,10 @@ export const SettingSidebar = ({
               asChild
               className={`
             w-full flex justify-center md:justify-start
-            ${
-              isActive
-                ? "bg-accent/50 font-semibold"
-                : "bg-background font-normal"
-            }
+            ${isActive
+                  ? "bg-accent/50 font-semibold"
+                  : "bg-background font-normal"
+                }
           `}
             >
               <Link to={item.url}>

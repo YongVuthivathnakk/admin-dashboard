@@ -1,9 +1,12 @@
 import { DashboardLayout, SettingLayout } from "@/layouts";
+import { ProfileForm } from "./profile-form";
 
 export const SettingProfile = () => {
   return (
     <DashboardLayout>
-      <SettingLayout>Profile</SettingLayout>
+      <SettingLayout>
+        <ProfileForm />
+      </SettingLayout>
     </DashboardLayout>
   );
 };
