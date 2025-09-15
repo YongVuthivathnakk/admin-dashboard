@@ -76,7 +76,7 @@ export const AppearanceForm = () => {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="flex flex-col max-w-3xl" onSubmit={form.handleSubmit(onSubmit)}>
         <header className="mb-5 flex flex-col gap-1">
           <h3 className="text-lg font-semibold">Appearance</h3>
           <p className="text-md text-muted-foreground">

@@ -26,7 +26,6 @@ export const NavOther = ({
         const haveActiveSubItems = items.some(item => item.items?.some(subItem => subItem.url === currentPathname));
         if(haveActiveSubItems) {
             setOpen(true);
-            console.log(open);
         }
     }, [currentPathname, items])
 
