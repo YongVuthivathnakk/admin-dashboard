@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { FaGithub } from "react-icons/fa";
 import { AppSidebar } from '@/components/app-sidebar'
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
@@ -7,6 +7,7 @@ import { Outlet } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 
 import { BreadcrumbHandler } from '@/features/breadcrumb-handler'
+import { GithubButton } from '@/components/github-button';
 
 
 export function DashboardLayout({
@@ -25,6 +26,9 @@ export function DashboardLayout({
               className="mr-2 data-[orientation=vertical]:h-4"
             />
             <BreadcrumbHandler />
+          </div>
+          <div>
+            <GithubButton />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
